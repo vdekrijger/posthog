@@ -2,7 +2,7 @@ import { useActions, useValues } from 'kea'
 import { useEffect } from 'react'
 
 import { IconExternal, IconTrash } from '@posthog/icons'
-import { LemonButton, LemonInput, LemonSelect, LemonSkeleton, LemonTag } from '@posthog/lemon-ui'
+import { LemonButton, LemonInput, LemonSelect, LemonSkeleton, LemonTag, Tooltip } from '@posthog/lemon-ui'
 
 import { SlackChannelPicker, SlackNotConfiguredBanner } from 'lib/integrations/SlackIntegrationHelpers'
 import { slackIntegrationLogic } from 'lib/integrations/slackIntegrationLogic'
@@ -165,7 +165,11 @@ export function InlineAlertNotifications({ alertId }: InlineAlertNotificationsPr
                         <div key={index} className="flex items-center justify-between border rounded p-2 gap-2">
                             <span className="text-sm min-w-0 truncate">
                                 {getNotificationLabel(notification)}{' '}
-                                <span className="text-muted-alt">(pending - click Save to apply)</span>
+                                <Tooltip title="Save this alert to add this destination.">
+                                    <LemonTag type="warning" size="small">
+                                        Pending
+                                    </LemonTag>
+                                </Tooltip>
                             </span>
                             <LemonButton
                                 icon={<IconTrash />}
